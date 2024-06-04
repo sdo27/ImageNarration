@@ -7,14 +7,14 @@ Analyze the image to detect landmarks, objects, text, logos, and dominant colors
 Generate a story based on the detected features using OpenAI GPT-4.
 Ask questions about the generated story and receive answers using OpenAI GPT-4.
 # Prerequisites #
-Python 3.x
-Tkinter for GUI
-PIL (Pillow) for image handling
-Requests for HTTP requests
-Google Cloud Vision API client library
-OpenAI API client library
-Webcolors for color name conversion
-Geocoder for reverse geocoding
+- Python 3.10
+- Tkinter for GUI
+- PIL (Pillow) for image handling
+- Requests for HTTP requests
+- Google Cloud Vision API client library
+- OpenAI API client library
+- Webcolors for color name conversion
+- Geocoder for reverse geocoding
 # Installation #
 Install the required Python packages:
 pip install tkinter pillow requests google-cloud-vision pandas openai webcolors geocoder
