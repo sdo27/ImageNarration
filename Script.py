@@ -151,7 +151,6 @@ def generate_description(image, url):
                 {"type": "text", "text": f"Text features in the image: +  {detect_text(image)}"},
                 {"type": "text", "text": f"Logos in the image: +  {detect_logo(image)}"},
                 {"type": "text", "text": f"Colors in the image: + {detect_properties(image)}"} if detect_properties(image) != "Hard time deciphering color" else {"type": "text", "text": "Hard time deciphering color"},
-                {"type": "image_url", "image_url": f"data:image/jpeg;base64, {base64_image}"}
                 ],
         }
     ],
