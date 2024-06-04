@@ -1,3 +1,4 @@
+# import packages
 import tkinter as tk
 from PIL import Image, ImageTk
 import requests
@@ -13,9 +14,11 @@ import requests
 import webcolors
 import geocoder
 
+# set variables to API keys #
 os.environ['GOOGLE_APPLICATION_CRDENTIALS'] = "SAT.json"
 api_key = os.environ.get('OPENAI_API_KEY')  ##my api key is stored in an environmental variable
 
+# Converts image url to base64 image #
 def encode_image(image_path):
   try:
         # Fetch the image data from the URL
@@ -33,6 +36,7 @@ def encode_image(image_path):
 
 #####################################################################################################################################
 #####################################################################################################################################
+# Color detection #
 def detect_properties(image):
     response = client.image_properties(image=image)
 
@@ -49,6 +53,9 @@ def detect_properties(image):
     
 ######################################################################################################################################
 ######################################### LANDMARKS ##################################################################################
+'''
+  detect_landmark() processes an image to output coordinates to then be passed into get_location_name() to get more information
+'''
 def get_location_name(latitude, longitude):
     location = geocoder.osm([latitude, longitude], method='reverse', language='en')
     address = location.address if location else None
@@ -83,7 +90,7 @@ def detect_landmarks(image) -> str:
 ##############################################################################################################################################
 ##############################################################################################################################################
 ################################################READING TEXTS OFF AN IMAGE ###################################################################
-
+# Text detectopm # 
 def detect_text(image) -> str:
     response = client.text_detection(image=image)
     #text_description = response.text_annotations[0].description
@@ -106,6 +113,8 @@ def detect_text(image) -> str:
 ################################################################################################################################################
 ################################################################################################################################################
 ################################################################################################################################################    
+
+#Logo detection #
 def detect_logo(image):
     response = client.logo_detection(image=image)
     logos = response.logo_annotations
@@ -121,6 +130,8 @@ def detect_logo(image):
 #################################################################################################################################################
 #################################################################################################################################################
 #################################################################################################################################################
+
+# multiple object detection #
 def multiple_object(image):
     objects = client.object_localization(image=image).localized_object_annotations
     object_list = []
@@ -132,6 +143,8 @@ def multiple_object(image):
 ##################################################################################################################################################
 ##################################################################################################################################################
 ##################################################################################################################################################
+
+# Storytelling Generation #
 def generate_description(image, url):
     base64_image = encode_image(url)
 
@@ -163,6 +176,8 @@ def generate_description(image, url):
     return response.json()['choices'][0]['message']['content']
 #############################################################################################################################################################
 #############################################################################################################################################################
+
+## GPT-4 answering questions #
 def ask_questions(story, question):
     headers = {
     "Content-Type": "application/json",
@@ -209,14 +224,14 @@ def submit_url():
     story_label.config(text=story)
 
 
-
+##Users prompt to ask questions 
 def prompt_questions():
     question = question_entry.get()
     answer = ask_questions(question, story)
     question_display.config(text=answer)
 
 # Create a window
-
+## GUI interface ##
 client = vision_v1.ImageAnnotatorClient()
 story = ""
 window = tk.Tk()
